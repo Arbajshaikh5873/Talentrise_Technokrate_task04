@@ -11,8 +11,13 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     // Add
+    initializeTodo: (state) => {
+      const data = localStorage.getItem("todos");
+      state.todos = data ? JSON.parse(data) : [];
+    },
     addTodo: (state, action) => {
       state.todos.push(action.payload);
+      localStorage.setItem("todos", JSON.stringify(state.todos));
     },
 
     // edit
@@ -30,21 +35,35 @@ export const todoSlice = createSlice({
     // delete
     deleteTodo: (state, action) => {
       const todoList = state.todos.filter(
-        (todo) => todo._id == action.payload._id
+        (todo) => todo._id != action.payload._id
       );
       state.todos = todoList;
     },
 
     // update status
-    updateTodo: (state, action) => {},
-  },
-
-  // keep track of edit index
-  editIndex: (state, action) => {
-    state.editIndex = action.payload;
+    updateTodo: (state, action) => {
+      state.todos = state.todos.map((todo) => {
+        if (todo._id == action.payload._id) {
+          return action.payload;
+        } else {
+          return todo;
+        }
+      });
+    },
+    // keep track of edit index
+    editId: (state, action) => {
+      state.editIndex = action.payload;
+    },
   },
 });
 
-export const { addTodo, editTodo, deleteTodo, updateTodo } = todoSlice.actions;
+export const {
+  addTodo,
+  editTodo,
+  deleteTodo,
+  updateTodo,
+  editId,
+  initializeTodo,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

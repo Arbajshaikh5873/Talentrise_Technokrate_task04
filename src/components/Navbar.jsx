@@ -1,10 +1,16 @@
 import React from "react";
 
-function Navbar() {
+function Navbar({ showForm, setShowForm }) {
   return (
     <div>
       <nav>
-        <button>Add new todo</button>
+        <button
+          onClick={() => {
+            setShowForm(!showForm);
+          }}
+        >
+          Add new todo
+        </button>
       </nav>
     </div>
   );
