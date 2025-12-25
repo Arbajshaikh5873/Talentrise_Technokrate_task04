@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
 function Navbar() {
   return (
-    <div>Navbar</div>
-  )
+    <div>
+      <nav>
+        <button>Add new todo</button>
+      </nav>
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;

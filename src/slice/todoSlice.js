@@ -3,6 +3,7 @@ import { act } from "react";
 
 const initialState = {
   todos: [],
+  editIndex: null,
 };
 
 export const todoSlice = createSlice({
@@ -37,7 +38,13 @@ export const todoSlice = createSlice({
     // update status
     updateTodo: (state, action) => {},
   },
+
+  // keep track of edit index
+  editIndex: (state, action) => {
+    state.editIndex = action.payload;
+  },
 });
 
 export const { addTodo, editTodo, deleteTodo, updateTodo } = todoSlice.actions;
+
 export default todoSlice.reducer;
