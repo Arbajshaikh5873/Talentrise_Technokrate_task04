@@ -7,24 +7,29 @@ import getDispatch from "./hooks/getDispatch";
 import { editId, initializeTodo } from "./slice/todoSlice";
 import getTodos from "./hooks/getTodos";
 import { useSelector } from "react-redux";
+import { initializeTheme } from "./slice/themeSlice";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
   const dispatch = getDispatch();
+  const darkMode = useSelector((state) => state.theme.darkMode);
+
   useEffect(() => {
     dispatch(initializeTodo());
-  }, []);
+    dispatch(initializeTheme());
+  }, [dispatch]);
 
   const todos = getTodos();
-  const editId = useSelector((state) => state.todo.editIndex);
+  const editIndex = useSelector((state) => state.todo.editIndex);
 
   return (
-    <>
-      <Navbar setShowForm={setShowForm} showForm={showForm} />
-      {(!todos || showForm || editId != null) && <AddEdit />}
-      <TodoCard />
-    </>
+    <div className={darkMode ? "dark" : ""}>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+        <Navbar setShowForm={setShowForm} showForm={showForm} />
+        {(todos.length === 0 || showForm || editIndex != null) && <AddEdit />}
+        <TodoCard />
+      </div>
+    </div>
   );
 }
-
 export default App;
