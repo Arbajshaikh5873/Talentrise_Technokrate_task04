@@ -1,16 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { act } from "react";
 
-const initialState = {
-  todos: [],
-  editIndex: null,
-};
-
-export const todoSlice = createSlice({
+const todoSlice = createSlice({
   name: "todo",
-  initialState,
+  initialState: {
+    todos: [],
+    editIndex: null,
+  },
   reducers: {
-    // Add
     initializeTodo: (state) => {
       const data = localStorage.getItem("todos");
       state.todos = data ? JSON.parse(data) : [];
@@ -19,8 +16,6 @@ export const todoSlice = createSlice({
       state.todos.push(action.payload);
       localStorage.setItem("todos", JSON.stringify(state.todos));
     },
-
-    // edit
     editTodo: (state, action) => {
       const todoList = state.todos.map((todo) => {
         if (todo._id == action.payload._id) {
@@ -28,19 +23,15 @@ export const todoSlice = createSlice({
         }
         return todo;
       });
-
       state.todos = todoList;
     },
-
-    // delete
     deleteTodo: (state, action) => {
       const todoList = state.todos.filter(
         (todo) => todo._id != action.payload._id
       );
       state.todos = todoList;
+      localStorage.setItem("todos", JSON.stringify(todoList));
     },
-
-    // update status
     updateTodo: (state, action) => {
       state.todos = state.todos.map((todo) => {
         if (todo._id == action.payload._id) {
@@ -49,8 +40,8 @@ export const todoSlice = createSlice({
           return todo;
         }
       });
+      localStorage.setItem("todos", JSON.stringify(state.todos));
     },
-    // keep track of edit index
     editId: (state, action) => {
       state.editIndex = action.payload;
     },
