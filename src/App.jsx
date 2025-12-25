@@ -9,6 +9,7 @@ import getTodos from "./hooks/getTodos";
 import { useSelector } from "react-redux";
 import { initializeTheme } from "./slice/themeSlice";
 
+// Main App Component
 function App() {
   const [showForm, setShowForm] = useState(false);
   const dispatch = getDispatch();
@@ -23,13 +24,18 @@ function App() {
   const editIndex = useSelector((state) => state.todo.editIndex);
 
   return (
-    <div className={darkMode ? "dark" : ""}>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-        <Navbar setShowForm={setShowForm} showForm={showForm} />
-        {(todos.length === 0 || showForm || editIndex != null) && <AddEdit />}
-        <TodoCard />
-      </div>
+    <div
+      className={`min-h-screen transition-colors duration-500 ${
+        darkMode
+          ? "bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900"
+          : "bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"
+      }`}
+    >
+      <Navbar setShowForm={setShowForm} showForm={showForm} />
+      {(todos.length === 0 || showForm || editIndex != null) && <AddEdit />}
+      <TodoCard />
     </div>
   );
 }
+
 export default App;

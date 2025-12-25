@@ -15,17 +15,28 @@ function Navbar({ showForm, setShowForm }) {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-gray-800 dark:to-gray-900 shadow-lg sticky top-0 z-50">
+    <nav
+      className={`shadow-lg sticky top-0 z-50 transition-all duration-300 ${
+        darkMode
+          ? "bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900"
+          : "bg-gradient-to-r from-blue-600 to-purple-600"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+          <div className="flex items-center gap-3">
+            <div className="text-3xl">{darkMode ? "🌙" : "☀️"}</div>
             <h1 className="text-2xl font-bold text-white">Todo Manager</h1>
           </div>
 
           <div className="flex items-center gap-4">
             <button
               onClick={handleThemeToggle}
-              className="p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-all duration-200"
+              className={`p-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-110 ${
+                darkMode
+                  ? "bg-yellow-400 text-gray-900 hover:bg-yellow-300"
+                  : "bg-indigo-900 text-white hover:bg-indigo-800"
+              }`}
               aria-label="Toggle theme"
             >
               {darkMode ? <MdLightMode size={24} /> : <MdDarkMode size={24} />}
@@ -33,7 +44,11 @@ function Navbar({ showForm, setShowForm }) {
 
             <button
               onClick={() => setShowForm(!showForm)}
-              className="px-6 py-2 bg-white text-blue-600 dark:bg-gray-700 dark:text-white rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-gray-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
+              className={`px-6 py-2 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 ${
+                darkMode
+                  ? "bg-purple-600 text-white hover:bg-purple-500"
+                  : "bg-white text-blue-600 hover:bg-blue-50"
+              }`}
             >
               {showForm ? "Cancel" : "Add New Todo"}
             </button>
