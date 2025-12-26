@@ -13,9 +13,8 @@ function Todo({ todo, index }) {
   return (
     <div
       className={`rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 p-6 border transform hover:-translate-y-1 ${
-        darkMode
-          ? "bg-gray-800 border-gray-700 hover:border-purple-500"
-          : "bg-white border-gray-200 hover:border-blue-400"
+        darkMode ? "bg-gray-800 border-gray-700 hover:border-purple-500" : ""
+        // bg-white border-gray-200 hover:border-blue-400
       }`}
     >
       <div className="flex justify-between items-start gap-4">
